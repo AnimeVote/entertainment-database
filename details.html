@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title Details</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101116;color:white;font-family:Arial}
+header{background:#191a22;padding:20px;text-align:center}
+header a{color:white;text-decoration:none}
+main{max-width:850px;margin:30px auto;padding:20px}
+.details{display:flex;gap:25px;flex-wrap:wrap}
+.poster{width:230px;max-width:100%;border-radius:10px;object-fit:cover}
+.info{flex:1;min-width:200px}
+h1{font-size:28px}
+p{color:#ccc;line-height:1.7}
+.back{display:inline-block;margin-top:20px;color:#aaa}
+@media(max-width:500px){
+.details{display:block}
+.poster{width:100%;max-width:250px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<a href="index.html">ENTERTAINMENT DATABASE</a>
+</header>
+
+<main>
+<div id="details">Loading...</div>
+<a class="back" href="index.html">← Back to home</a>
+</main>
+
+<script>
+const BASE="/entertainment-database/";
+
+const files=[
+"database/anime/anime-001.json",
+"database/movies/movies-001.json",
+"database/kdrama/kdrama-001.json",
+"database/cdrama/cdrama-001.json",
+"database/webseries/webseries-001.json",
+"database/tvshows/tvshows-001.json"
+];
+
+async function loadDetails(){
+
+const params=new URLSearchParams(location.search);
+const id=params.get("id");
+const category=params.get("category");
+
+let found=null;
+
+for(const file of files){
+try{
+const response=await fetch(BASE+file);
+if(!response.ok)continue;
+
+const data=await response.json();
+
+found=data.find(item=>
+String(item.id)===id &&
+item.category.toLowerCase()===String(category).toLowerCase()
+);
+
+if(found)break;
+}catch(error){
+console.error(error);
+}
+}
+
+const box=document.getElementById("details");
+
+if(!found){
+box.textContent="Title not found.";
+return;
+}
+
+const safe=value=>String(value||"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+box.innerHTML=`
+<div class="details">
+<img class="poster" src="${safe(found.poster)}" alt="${safe(found.title)}">
+<div class="info">
+<h1>${safe(found.title)}</h1>
+<p><b>Category:</b> ${safe(found.category)}</p>
+<p><b>Release Year:</b> ${safe(found.year)}</p>
+<p>${safe(found.description)}</p>
+</div>
+</div>
+`;
+}
+
+loadDetails();
+</script>
+
+</body>
+</html>
