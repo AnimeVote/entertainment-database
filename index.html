@@ -17,7 +17,7 @@ main{padding:20px}
 .total{text-align:center;margin:20px}
 .total h1{font-size:30px;margin:8px}
 .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.post{background:#20212a;border-radius:9px;overflow:hidden}
+.post{background:#20212a;border-radius:9px;overflow:hidden;cursor:pointer}
 .post img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .post h3{font-size:14px;padding:8px;margin:0}
 .pages{text-align:center;padding:25px}
@@ -55,9 +55,9 @@ TOTAL ENTRIES
 </main>
 
 <script>
-const BASE = "/entertainment-database/";
+const BASE="/entertainment-database/";
 
-const files = [
+const files=[
 "database/anime/anime-001.json",
 "database/movies/movies-001.json",
 "database/kdrama/kdrama-001.json",
@@ -66,84 +66,77 @@ const files = [
 "database/tvshows/tvshows-001.json"
 ];
 
-let allPosts = [];
-let page = 1;
-const perPage = 21;
+let allPosts=[];
+let page=1;
+const perPage=21;
 
 async function loadDatabase(){
 
-allPosts = [];
+allPosts=[];
 
 for(const file of files){
-
 try{
+const response=await fetch(BASE+file+"?v="+Date.now());
 
-const response = await fetch(
-BASE + file + "?v=" + Date.now()
-);
+if(!response.ok)continue;
 
-if(!response.ok){
-console.error("File not found:",file);
-continue;
-}
-
-const data = await response.json();
+const data=await response.json();
 
 if(Array.isArray(data)){
 allPosts.push(...data);
 }
 
 }catch(error){
-console.error("Database error:",file,error);
+console.error(error);
 }
-
 }
 
 allPosts.sort((a,b)=>
-new Date(b.addedAt || 0) -
-new Date(a.addedAt || 0)
+new Date(b.addedAt||0)-new Date(a.addedAt||0)
 );
 
-document.getElementById("total").textContent =
+document.getElementById("total").textContent=
 String(allPosts.length).padStart(6,"0");
 
-document.getElementById("status").textContent =
-allPosts.length ? "" : "No posts found.";
+document.getElementById("status").textContent=
+allPosts.length?"":"No posts found.";
 
 render();
-
 }
 
 function render(){
 
-const search =
-document.getElementById("search").value.toLowerCase();
+const search=document.getElementById("search").value.toLowerCase();
 
-const filtered = allPosts.filter(p =>
-String(p.title || "").toLowerCase().includes(search)
+const filtered=allPosts.filter(p=>
+String(p.title||"").toLowerCase().includes(search)
 );
 
-const totalPages = Math.ceil(filtered.length/perPage);
+const totalPages=Math.ceil(filtered.length/perPage);
 
-if(page > totalPages) page = Math.max(1,totalPages);
+if(page>totalPages)page=Math.max(1,totalPages);
 
-const start = (page-1)*perPage;
-const posts = filtered.slice(start,start+perPage);
+const start=(page-1)*perPage;
+const posts=filtered.slice(start,start+perPage);
 
-document.getElementById("posts").innerHTML =
+document.getElementById("posts").innerHTML=
 posts.map(p=>`
-<div class="post">
-<img src="${p.poster || ''}" alt=""
+<div class="post"
+onclick="openDetails('${encodeURIComponent(p.id)}','${encodeURIComponent(p.category)}')">
+
+<img src="${escapeHTML(p.poster||"")}"
+alt="${escapeHTML(p.title||"")}"
 onerror="this.style.display='none'">
-<h3>${escapeHTML(p.title || "Untitled")}</h3>
+
+<h3>${escapeHTML(p.title||"Untitled")}</h3>
+
 </div>
 `).join("");
 
-document.getElementById("pages").innerHTML =
+document.getElementById("pages").innerHTML=
 Array.from({length:totalPages},(_,i)=>
 `<button onclick="goPage(${i+1})">${i+1}</button>`
 ).join("");
-
 }
 
 function escapeHTML(value){
@@ -154,6 +147,10 @@ return String(value).replace(/[&<>"']/g,char=>({
 '"':"&quot;",
 "'":"&#39;"
 }[char]));
+}
+
+function openDetails(id,category){
+location.href="details.html?id="+id+"&category="+category;
 }
 
 function goPage(n){
