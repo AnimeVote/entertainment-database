@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entertainment Database</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101116;color:white;font-family:Arial}
+header{padding:20px;text-align:center;background:#191a22}
+header h2{margin:0}
+.search{padding:20px;text-align:center}
+input{width:90%;max-width:500px;padding:13px;border:0;border-radius:8px}
+main{padding:20px}
+.total{text-align:center;margin:20px}
+.total h1{font-size:30px;margin:8px}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.post{background:#20212a;border-radius:9px;overflow:hidden}
+.post img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.post h3{font-size:14px;padding:8px;margin:0}
+.pages{text-align:center;padding:25px}
+button{padding:10px;margin:3px;border:0;border-radius:5px;cursor:pointer}
+@media(min-width:700px){.posts{grid-template-columns:repeat(7,1fr)}}
+</style>
+</head>
+<body>
+<header><h2>ENTERTAINMENT DATABASE</h2></header>
+
+<div class="search">
+<input id="search" placeholder="Search anime, movies, dramas..." />
+</div>
+
+<main>
+<div class="total">
+TOTAL ENTRIES
+<h1 id="total">000000</h1>
+</div>
+
+<h2>Latest Posts</h2>
+<div class="posts" id="posts"></div>
+<div class="pages" id="pages"></div>
+</main>
+
+<script>
+const files=[
+"database/anime/anime-001.json",
+"database/movies/movies-001.json",
+"database/kdrama/kdrama-001.json",
+"database/cdrama/cdrama-001.json",
+"database/webseries/webseries-001.json",
+"database/tvshows/tvshows-001.json"
+];
+
+let allPosts=[];
+let page=1;
+const perPage=21;
+
+async function loadDatabase(){
+ for(const file of files){
+  try{
+   const response=await fetch(file);
+   if(response.ok){
+    const data=await response.json();
+    allPosts.push(...data);
+   }
+  }catch(error){console.log(error)}
+ }
+ allPosts.sort((a,b)=>new Date(b.addedAt||0)-new Date(a.addedAt||0));
+ document.getElementById("total").textContent=
+ String(allPosts.length).padStart(6,"0");
+ render();
+}
+
+function render(){
+ const search=document.getElementById("search").value.toLowerCase();
+ const filtered=allPosts.filter(p=>p.title.toLowerCase().includes(search));
+ const totalPages=Math.ceil(filtered.length/perPage);
+ if(page>totalPages)page=Math.max(1,totalPages);
+ const start=(page-1)*perPage;
+ const posts=filtered.slice(start,start+perPage);
+ document.getElementById("posts").innerHTML=posts.map(p=>`
+ <div class="post">
+ <img src="${p.poster||''}" alt="${p.title}"
+ onerror="this.style.display='none'">
+ <h3>${p.title}</h3>
+ </div>`).join("");
+ document.getElementById("pages").innerHTML=
+ Array.from({length:totalPages},(_,i)=>
+ `<button onclick="goPage(${i+1})">${i+1}</button>`).join("");
+}
+
+function goPage(n){page=n;render()}
+document.getElementById("search").addEventListener("input",()=>{
+ page=1;render();
+});
+loadDatabase();
+</script>
+</body>
+</html>
