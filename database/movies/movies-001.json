@@ -28,3 +28,96 @@
     "addedAt": "2026-11-24"
   }
 ]
+
+[
+  {
+    "id": 1,
+    "title": "Avatar",
+    "category": "Movies",
+    "year": 2009,
+    "poster": "https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
+    "description": "A marine travels to Pandora and becomes involved in the conflict between humans and the Na'vi.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 2,
+    "title": "Avengers: Endgame",
+    "category": "Movies",
+    "year": 2019,
+    "poster": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+    "description": "The Avengers attempt to reverse the devastating events caused by Thanos.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 3,
+    "title": "Titanic",
+    "category": "Movies",
+    "year": 1997,
+    "poster": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+    "description": "A romantic drama unfolds aboard the ill-fated RMS Titanic.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 4,
+    "title": "Inception",
+    "category": "Movies",
+    "year": 2010,
+    "poster": "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+    "description": "A skilled thief enters people's dreams to steal secrets and attempts an impossible mission.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 5,
+    "title": "Interstellar",
+    "category": "Movies",
+    "year": 2014,
+    "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "description": "Astronauts travel through a wormhole searching for a new home for humanity.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 6,
+    "title": "The Dark Knight",
+    "category": "Movies",
+    "year": 2008,
+    "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "description": "Batman faces the Joker, a criminal mastermind threatening Gotham City.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 7,
+    "title": "Jurassic Park",
+    "category": "Movies",
+    "year": 1993,
+    "poster": "https://image.tmdb.org/t/p/w500/b1xCNnyrPebIc7EWNZIa6jhb1Ww.jpg",
+    "description": "Scientists visit a theme park where genetically recreated dinosaurs escape their enclosures.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 8,
+    "title": "Spider-Man: No Way Home",
+    "category": "Movies",
+    "year": 2021,
+    "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "description": "Peter Parker faces a multiverse crisis after his identity becomes public.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 9,
+    "title": "The Matrix",
+    "category": "Movies",
+    "year": 1999,
+    "poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "description": "A computer hacker discovers that reality is a simulated world controlled by machines.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 10,
+    "title": "Gladiator",
+    "category": "Movies",
+    "year": 2000,
+    "poster": "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+    "description": "A betrayed Roman general becomes a gladiator seeking justice and revenge.",
+    "addedAt": "2026-11-24"
+  }
+]
