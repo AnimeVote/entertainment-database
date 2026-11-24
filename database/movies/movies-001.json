@@ -1,3 +1,4 @@
+
 [
   {
     "id": 1,
@@ -5,7 +6,25 @@
     "category": "Anime",
     "year": 2024,
     "poster": "https://i.ibb.co/ym0L8WmV/images.jpg",
-    "description": "An anime series",
+    "description": "An anime series about a weak hunter who gains a mysterious leveling system and becomes increasingly powerful.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 2,
+    "title": "Naruto",
+    "category": "Anime",
+    "year": 2002,
+    "poster": "https://cdn.myanimelist.net/images/anime/13/17405.jpg",
+    "description": "Naruto Uzumaki dreams of becoming the Hokage while training as a ninja and building friendships.",
+    "addedAt": "2026-11-24"
+  },
+  {
+    "id": 3,
+    "title": "Demon Slayer: Kimetsu no Yaiba",
+    "category": "Anime",
+    "year": 2019,
+    "poster": "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
+    "description": "Tanjiro Kamado joins the Demon Slayer Corps after his family is attacked and his sister becomes a demon.",
     "addedAt": "2026-11-24"
   }
 ]
